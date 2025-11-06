@@ -1,0 +1,32 @@
+{% extends 'hr/base.html' %}
+{% block content %}
+<h2>Edit Employee</h2>
+<form method="POST">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label>Name</label>
+    <input type="text" name="name" value="{{ emp.name }}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Position</label>
+    <input type="text" name="position" value="{{ emp.position }}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Department</label>
+    <input type="text" name="department" value="{{ emp.department }}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Email</label>
+    <input type="email" name="email" value="{{ emp.email }}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Salary</label>
+    <input type="number" name="salary" value="{{ emp.salary }}" step="0.01" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Date Joined</label>
+    <input type="date" name="date_joined" value="{{ emp.date_joined|date:'Y-m-d' }}" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-success">Save Changes</button>
+  <a href="/employees/" class="btn btn-secondary">Cancel</a>
+{% endblock %}
