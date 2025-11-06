@@ -62,3 +62,22 @@ def delete_employee(request, emp_id):
     messages.warning(request, "Employee deleted successfully!")
     return redirect('employee_list')
 
+import csv
+from django.http import HttpResponse
+
+def export_employees_csv(request):
+    # Create a new HTTP response with CSV content
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="employees.csv"'
+
+    writer = csv.writer(response)
+    # Write the header row
+    writer.writerow(['Name', 'Position', 'Department', 'Email', 'Salary', 'Date Joined'])
+
+    # Write each employee’s data row
+    from .models import Employee
+    for emp in Employee.objects.all():
+        writer.writerow([emp.name, emp.position, emp.department, emp.email, emp.salary, emp.date_joined])
+
+    return response
+
