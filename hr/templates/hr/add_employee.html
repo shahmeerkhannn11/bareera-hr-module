@@ -1,0 +1,33 @@
+{% extends 'hr/base.html' %}
+{% block content %}
+<h2>Add Employee</h2>
+<form method="POST">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input type="text" name="name" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Position</label>
+    <input type="text" name="position" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Department</label>
+    <input type="text" name="department" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input type="email" name="email" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Salary</label>
+    <input type="number" name="salary" step="0.01" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Date Joined</label>
+    <input type="date" name="date_joined" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-success">Save</button>
+  <a href="/employees/" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'hr/base.html' %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="row text-center">
+  <div class="col-md-4">
+    <div class="card text-bg-primary mb-3">
+      <div class="card-body">
+        <h5>{{ employees }}</h5>
+        <p>Employees</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-bg-success mb-3">
+      <div class="card-body">
+        <h5>{{ attendance }}</h5>
+        <p>Attendance Records</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-bg-warning mb-3">
+      <div class="card-body">
+        <h5>{{ payroll }}</h5>
+        <p>Payroll Entries</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
