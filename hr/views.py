@@ -3,15 +3,20 @@ from .models import Employee, Attendance, Payroll
 from django.contrib import messages
 
 # Home/Dashboard
+from .models import Employee, Attendance, Payroll
 from django.db.models import Avg
-from .models import Employee
 
 def home(request):
     employees = Employee.objects.count()
     avg_salary = Employee.objects.aggregate(Avg('salary'))['salary__avg'] or 0
+    attendance_count = Attendance.objects.count()
+    payroll_count = Payroll.objects.count()
+
     return render(request, 'hr/home.html', {
         'employees': employees,
         'avg_salary': round(avg_salary, 2),
+        'attendance_count': attendance_count,
+        'payroll_count': payroll_count,
     })
 
 # Employee list
