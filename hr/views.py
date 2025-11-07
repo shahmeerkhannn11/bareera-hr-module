@@ -85,4 +85,12 @@ def export_employees_csv(request):
         writer.writerow([emp.name, emp.position, emp.department, emp.email, emp.salary, emp.date_joined])
 
     return response
+def attendance_list(request):
+    records = Attendance.objects.all()
+    return render(request, 'hr/attendance.html', {'records': records})
+
+def payroll_list(request):
+    records = Payroll.objects.all()
+    return render(request, 'hr/payroll.html', {'records': records})
+
 
