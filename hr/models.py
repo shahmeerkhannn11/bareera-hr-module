@@ -10,29 +10,23 @@ class Employee(models.Model):
     date_joined = models.DateField()
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.position})"
 
 
 class Attendance(models.Model):
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='attendance')
     date = models.DateField()
-    status = models.CharField(max_length=10, choices=[
-        ('Present', 'Present'),
-        ('Absent', 'Absent'),
-        ('Leave', 'Leave')
-    ])
+    status = models.CharField(max_length=20, choices=[('Present', 'Present'), ('Absent', 'Absent')])
 
     def __str__(self):
         return f"{self.employee.name} - {self.date} ({self.status})"
 
 
 class Payroll(models.Model):
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    month = models.CharField(max_length=20)
-    basic_pay = models.DecimalField(max_digits=10, decimal_places=2)
-    bonus = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    total_pay = models.DecimalField(max_digits=10, decimal_places=2)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='payroll')
+    payment_date = models.DateField()
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    remarks = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.employee.name} - {self.month}"
-
+        return f"{self.employee.name} - {self.amount}"

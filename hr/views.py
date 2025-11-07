@@ -1,96 +1,97 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Employee, Attendance, Payroll
-from django.contrib import messages
-
-# Home/Dashboard
-from .models import Employee, Attendance, Payroll
 from django.db.models import Avg
+from django.http import HttpResponse
+import csv
+from .models import Employee, Attendance, Payroll
 
+
+# ---------------------------
+# HOME / DASHBOARD
+# ---------------------------
 def home(request):
-    employees = Employee.objects.count()
+    total_employees = Employee.objects.count()
     avg_salary = Employee.objects.aggregate(Avg('salary'))['salary__avg'] or 0
-    attendance_count = Attendance.objects.count()
-    payroll_count = Payroll.objects.count()
+    total_attendance = Attendance.objects.count()
+    total_payroll = Payroll.objects.count()
 
-    return render(request, 'hr/home.html', {
-        'employees': employees,
+    context = {
+        'total_employees': total_employees,
         'avg_salary': round(avg_salary, 2),
-        'attendance_count': attendance_count,
-        'payroll_count': payroll_count,
-    })
+        'total_attendance': total_attendance,
+        'total_payroll': total_payroll,
+    }
+    return render(request, 'hr/home.html', context)
 
-# Employee list
+
+# ---------------------------
+# EMPLOYEE CRUD
+# ---------------------------
 def employee_list(request):
-    all_employees = Employee.objects.all()
-    return render(request, 'hr/employees.html', {'employees': all_employees})
+    employees = Employee.objects.all().order_by('emp_id')
+    return render(request, 'hr/employees.html', {'employees': employees})
 
 
-# Add Employee
 def add_employee(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        position = request.POST.get('position')
-        department = request.POST.get('department')
-        email = request.POST.get('email')
-        salary = request.POST.get('salary')
-        date_joined = request.POST.get('date_joined')
         Employee.objects.create(
-            name=name,
-            position=position,
-            department=department,
-            email=email,
-            salary=salary,
-            date_joined=date_joined
+            name=request.POST.get('name'),
+            position=request.POST.get('position'),
+            department=request.POST.get('department'),
+            email=request.POST.get('email'),
+            salary=request.POST.get('salary'),
+            date_joined=request.POST.get('date_joined')
         )
-        messages.success(request, "Employee added successfully!")
         return redirect('employee_list')
     return render(request, 'hr/add_employee.html')
 
+
 def edit_employee(request, emp_id):
-    emp = Employee.objects.get(id=emp_id)
+    employee = get_object_or_404(Employee, emp_id=emp_id)
     if request.method == 'POST':
-        emp.name = request.POST.get('name')
-        emp.position = request.POST.get('position')
-        emp.department = request.POST.get('department')
-        emp.email = request.POST.get('email')
-        emp.salary = request.POST.get('salary')
-        emp.date_joined = request.POST.get('date_joined')
-        emp.save()
-        messages.success(request, "Employee updated successfully!")
+        employee.name = request.POST.get('name')
+        employee.position = request.POST.get('position')
+        employee.department = request.POST.get('department')
+        employee.email = request.POST.get('email')
+        employee.salary = request.POST.get('salary')
+        employee.date_joined = request.POST.get('date_joined')
+        employee.save()
         return redirect('employee_list')
-    return render(request, 'hr/edit_employee.html', {'emp': emp})
+    return render(request, 'hr/edit_employee.html', {'employee': employee})
 
 
 def delete_employee(request, emp_id):
-    emp = Employee.objects.get(id=emp_id)
-    emp.delete()
-    messages.warning(request, "Employee deleted successfully!")
+    employee = get_object_or_404(Employee, emp_id=emp_id)
+    employee.delete()
     return redirect('employee_list')
 
-import csv
-from django.http import HttpResponse
 
+# ---------------------------
+# ATTENDANCE
+# ---------------------------
+def attendance_list(request):
+    attendance = Attendance.objects.select_related('employee').all().order_by('-date')
+    return render(request, 'hr/attendance.html', {'attendance': attendance})
+
+
+# ---------------------------
+# PAYROLL
+# ---------------------------
+def payroll_list(request):
+    payroll = Payroll.objects.select_related('employee').all().order_by('-payment_date')
+    return render(request, 'hr/payroll.html', {'payroll': payroll})
+
+
+# ---------------------------
+# EXPORT EMPLOYEES (CSV)
+# ---------------------------
 def export_employees_csv(request):
-    # Create a new HTTP response with CSV content
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="employees.csv"'
 
     writer = csv.writer(response)
-    # Write the header row
-    writer.writerow(['Name', 'Position', 'Department', 'Email', 'Salary', 'Date Joined'])
+    writer.writerow(['Employee ID', 'Name', 'Position', 'Department', 'Email', 'Salary', 'Date Joined'])
 
-    # Write each employee’s data row
-    from .models import Employee
     for emp in Employee.objects.all():
-        writer.writerow([emp.name, emp.position, emp.department, emp.email, emp.salary, emp.date_joined])
+        writer.writerow([emp.emp_id, emp.name, emp.position, emp.department, emp.email, emp.salary, emp.date_joined])
 
     return response
-def attendance_list(request):
-    records = Attendance.objects.all()
-    return render(request, 'hr/attendance.html', {'records': records})
-
-def payroll_list(request):
-    records = Payroll.objects.all()
-    return render(request, 'hr/payroll.html', {'records': records})
-
-

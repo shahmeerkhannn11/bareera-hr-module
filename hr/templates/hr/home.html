@@ -1,40 +1,70 @@
 {% extends 'hr/base.html' %}
 {% block content %}
-<h2 class="mb-4">Dashboard</h2>
-<div class="row text-center">
-  <div class="col-md-6">
-    <div class="card text-bg-primary mb-3">
-      <div class="card-body">
-        <h4>{{ employees }}</h4>
-        <p>Total Employees</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card text-bg-success mb-3">
-      <div class="card-body">
-        <h4>${{ avg_salary }}</h4>
-        <p>Average Salary</p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="col-md-6 col-lg-3">
-  <div class="card text-bg-info mb-3">
-    <div class="card-body">
-      <h4>{{ attendance_count }}</h4>
-      <p>Attendance Records</p>
-    </div>
-  </div>
-</div>
 
-<div class="col-md-6 col-lg-3">
-  <div class="card text-bg-warning mb-3">
-    <div class="card-body">
-      <h4>{{ payroll_count }}</h4>
-      <p>Payroll Records</p>
+<div class="container mt-5">
+  <h2 class="mb-4 fw-bold">Dashboard</h2>
+
+  <!-- Dashboard Stats Section -->
+  <div class="row g-4">
+
+    <!-- Total Employees -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card shadow-sm border-0 rounded-3 text-center" style="background-color: #0d6efd; color: white;">
+        <div class="card-body py-4">
+          <h3 class="display-6 fw-bold">{{ total_employees }}</h3>
+          <p class="mb-0 fs-6">Total Employees</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Average Salary -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card shadow-sm border-0 rounded-3 text-center" style="background-color: #198754; color: white;">
+        <div class="card-body py-4">
+          <h3 class="display-6 fw-bold">${{ avg_salary }}</h3>
+          <p class="mb-0 fs-6">Average Salary</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attendance Records -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card shadow-sm border-0 rounded-3 text-center" style="background-color: #0dcaf0; color: black;">
+        <div class="card-body py-4">
+          <h3 class="display-6 fw-bold">{{ total_attendance }}</h3>
+          <p class="mb-0 fs-6">Attendance Records</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payroll Records -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card shadow-sm border-0 rounded-3 text-center" style="background-color: #ffc107; color: black;">
+        <div class="card-body py-4">
+          <h3 class="display-6 fw-bold">{{ total_payroll }}</h3>
+          <p class="mb-0 fs-6">Payroll Records</p>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- Navigation Buttons Section -->
+  <div class="mt-5">
+    <h5 class="fw-bold mb-3">Quick Access</h5>
+    <div class="d-flex flex-wrap gap-3">
+      <a href="/employees/" class="btn btn-primary btn-lg shadow-sm">👨‍💼 Manage Employees</a>
+      <a href="/attendance/" class="btn btn-info btn-lg shadow-sm text-white">📅 Attendance</a>
+      <a href="/payroll/" class="btn btn-warning btn-lg shadow-sm">💰 Payroll</a>
+      <a href="/admin/" class="btn btn-dark btn-lg shadow-sm">⚙️ Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-5 text-center text-muted small">
+    <hr>
+    <p>© 2025 HR Management System | Developed by Shahmeer Khan</p>
+  </footer>
+
 </div>
 
 {% endblock %}
