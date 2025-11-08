@@ -1,0 +1,82 @@
+/* ===== HR Management Custom Admin Theme ===== */
+
+/* Global Styles */
+body {
+    background-color: #f4f6f9 !important;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+
+/* Header */
+#header {
+    background-color: #1f2937 !important;
+    color: #ffffff !important;
+    border-bottom: 4px solid #2563eb !important;
+}
+
+#header a:link, #header a:visited {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+/* Breadcrumbs */
+div.breadcrumbs {
+    background: #e5e7eb !important;
+    color: #111827 !important;
+    border-bottom: 2px solid #9ca3af !important;
+}
+
+/* Modules / Boxes */
+.module caption {
+    background-color: #2563eb !important;
+    color: white !important;
+    font-weight: bold;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+/* Buttons */
+button, input[type=submit], input[type=button] {
+    background-color: #2563eb !important;
+    border: none !important;
+    color: white !important;
+    padding: 7px 14px !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background-color: #1d4ed8 !important;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+th {
+    background-color: #2563eb !important;
+    color: #fff !important;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: #f9fafb !important;
+}
+
+/* Form Fields */
+input, select, textarea {
+    border: 1px solid #d1d5db !important;
+    border-radius: 4px !important;
+    padding: 5px !important;
+}
+
+/* Footer */
+#footer {
+    background: #1f2937 !important;
+    color: #9ca3af !important;
+    border-top: 2px solid #2563eb !important;
+    text-align: center;
+    padding: 12px;
+}
