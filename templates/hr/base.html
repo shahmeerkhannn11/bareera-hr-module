@@ -3,10 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-
-  <!-- ✅ Only ONE title block -->
-  <title>{% block title %}Bareera HR Management System{% endblock %}</title>
-
+  <title>{% block title %}Bareera HR{% endblock %}</title>
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/theme.css' %}">
 
@@ -20,29 +17,65 @@
   <style>
     body {
       background-color: #f8f9fa;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
+
+    /* --- NAVBAR --- */
     .navbar {
-      background-color: #0d6efd;
+      background-color: #2563eb;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 12px 0;
     }
-    .navbar-brand, .nav-link {
+
+    .navbar-brand {
+      color: #fff !important;
+      font-weight: 700;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .navbar-brand span {
+      font-size: 22px;
+    }
+
+    .nav-link {
       color: #fff !important;
       font-weight: 500;
+      margin-left: 10px;
+      transition: 0.2s;
     }
+
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+
+    /* --- FOOTER --- */
     footer {
       text-align: center;
-      margin-top: 50px;
+      margin-top: 60px;
       padding: 20px;
-      background: #0d6efd;
+      background: #2563eb;
       color: white;
       border-radius: 10px 10px 0 0;
+      font-size: 15px;
     }
+
     .card {
       border-radius: 15px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+
     a.btn {
       border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .navbar-brand {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
@@ -50,10 +83,15 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="/">HR Management</a>
+      <!-- 👨‍💼 HR Brand Logo -->
+      <a class="navbar-brand fw-bold" href="/">
+        <span>👨‍💼</span> HR Management
+      </a>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
@@ -71,7 +109,7 @@
   </main>
 
   <footer>
-    <p class="mb-0">&copy; 2025 Bareera HR System | Developed by Shahmeer Khan</p>
+    <p class="mb-0">© 2025 Bareera HR System | Developed by Shahmeer Khan 👨‍💻</p>
   </footer>
 </body>
 </html>

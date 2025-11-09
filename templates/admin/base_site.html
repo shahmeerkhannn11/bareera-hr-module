@@ -10,56 +10,113 @@
     --primary-hover: #1d4ed8;
     --background-dark: #0f172a;
     --card-dark: #1e293b;
-    --text-light: #e2e8f0;
+    --text-light: #f1f5f9;
     --text-muted: #94a3b8;
     --border-color: #334155;
   }
 
   body {
     background-color: var(--background-dark);
-    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: var(--text-light);
+    font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
   }
 
+  /* ---------------- HEADER ---------------- */
   #header {
     background-color: var(--primary-color);
-    color: white;
+    color: #fff;
     padding: 16px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid var(--border-color);
   }
 
   #header h1 {
-    font-size: 20px;
+    font-size: 22px;
     margin: 0;
-    font-weight: 600;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.4px;
   }
 
+  /* 👨‍💼 Emoji branding */
+  #header h1 a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #header h1 a span {
+    font-size: 26px;
+  }
+
+  /* ---------------- USER TOOLS ---------------- */
   #user-tools {
     font-size: 14px;
     font-weight: 500;
-    color: white;
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
   }
 
+  #user-tools a,
+  #user-tools button {
+    color: white !important;
+    background: transparent;
+    font-weight: 600;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+  }
+
+  #user-tools a:hover,
+  #user-tools button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Log out button emphasis */
+  #user-tools #logout-form button {
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 10px;
+  }
+
+  /* Remove slashes and extra symbols */
+  #user-tools a::before,
+  #user-tools a::after,
+  #user-tools button::before,
+  #user-tools button::after {
+    content: none !important;
+  }
+
+  /* ---------------- CONTENT ---------------- */
   #content {
     background-color: var(--card-dark);
     border-radius: 10px;
-    margin: 20px auto;
-    padding: 20px;
-    width: 95%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin: 25px auto;
+    padding: 25px;
+    width: 94%;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
     overflow-x: auto;
   }
 
   caption {
     background-color: var(--primary-hover);
-    color: #ffffff;
+    color: #fff;
     font-weight: 600;
     font-size: 16px;
     padding: 12px;
@@ -80,12 +137,12 @@
   }
 
   th {
-    color: var(--text-light);
     font-weight: 600;
+    font-size: 15px;
   }
 
   tr:nth-child(even) {
-    background-color: #1e293b;
+    background-color: #273449;
   }
 
   a, a:visited {
@@ -97,6 +154,7 @@
     color: var(--primary-hover);
   }
 
+  /* ---------------- BUTTONS ---------------- */
   .btn {
     display: inline-block;
     padding: 8px 14px;
@@ -104,8 +162,8 @@
     border-radius: 6px;
     font-weight: 500;
     text-align: center;
+    transition: all 0.25s ease;
     text-decoration: none;
-    transition: 0.2s;
   }
 
   .btn-primary {
@@ -126,31 +184,42 @@
     background-color: #b91c1c;
   }
 
+  /* ---------------- FOOTER ---------------- */
   #footer {
     text-align: center;
-    padding: 10px;
+    padding: 14px;
     color: var(--text-muted);
     font-size: 13px;
+    background-color: var(--card-dark);
+    border-top: 1px solid var(--border-color);
+    border-radius: 0 0 10px 10px;
+    margin-top: 25px;
   }
 
+  /* ---------------- RESPONSIVE ---------------- */
   @media (max-width: 768px) {
     #header {
       flex-direction: column;
       text-align: center;
+      gap: 10px;
     }
 
     #content {
-      width: 98%;
-      padding: 15px;
+      width: 96%;
+      padding: 20px;
     }
 
-    table, th, td {
+    th, td {
       font-size: 13px;
     }
 
     .btn {
-      padding: 6px 10px;
       font-size: 13px;
+      padding: 7px 12px;
+    }
+
+    #user-tools a {
+      margin: 4px 0;
     }
   }
 </style>
@@ -158,8 +227,8 @@
 
 {% block branding %}
 <h1 id="site-name">
-  <a href="{% url 'admin:index' %}" style="color:white;text-decoration:none;">
-    Bareera HR Administration
+  <a href="{% url 'admin:index' %}">
+    <span>👨‍💼</span> Bareera HR Administration
   </a>
 </h1>
 {% endblock %}

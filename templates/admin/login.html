@@ -1,158 +1,173 @@
-{% extends "admin/base.html" %}
 {% load i18n static %}
 
-{% block title %}Bareera HR | Admin Login{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bareera HR | Admin Login</title>
 
-{% block extrastyle %}
-<style>
-  :root {
-    --primary-color: #2563eb;
-    --primary-hover: #1d4ed8;
-    --background-dark: #0f172a;
-    --card-dark: #1e293b;
-    --text-light: #e2e8f0;
-    --text-muted: #94a3b8;
-    --border-color: #334155;
-  }
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --background-dark: #0f172a;
+      --card-dark: #1e293b;
+      --text-light: #e2e8f0;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+    }
 
-  body {
-    background-color: var(--background-dark);
-    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    color: var(--text-light);
-  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  .login-container {
-    background-color: var(--card-dark);
-    padding: 40px 45px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-  }
+    body {
+      background: linear-gradient(160deg, #0f172a, #1e293b);
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text-light);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-  .login-title {
-    text-align: center;
-    color: var(--primary-color);
-    font-size: 26px;
-    font-weight: 600;
-    margin-bottom: 25px;
-  }
-
-  form label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--text-light);
-    font-weight: 500;
-    font-size: 14px;
-  }
-
-  form input[type="text"],
-  form input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 18px;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    background-color: #0f172a;
-    color: var(--text-light);
-    font-size: 15px;
-    transition: 0.2s;
-  }
-
-  form input[type="text"]:focus,
-  form input[type="password"]:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
-    outline: none;
-  }
-
-  .login-btn {
-    width: 100%;
-    background-color: var(--primary-color);
-    color: white;
-    font-size: 16px;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-
-  .login-btn:hover {
-    background-color: var(--primary-hover);
-  }
-
-  .errornote {
-    background-color: #dc2626;
-    color: white;
-    text-align: center;
-    padding: 8px;
-    border-radius: 6px;
-    font-size: 14px;
-    margin-bottom: 15px;
-  }
-
-  .footer {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 13px;
-    margin-top: 15px;
-  }
-
-  @media (max-width: 768px) {
+    /* ✅ Clean Login Box */
     .login-container {
-      padding: 30px;
+      background-color: var(--card-dark);
+      padding: 40px 45px;
+      border-radius: 14px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .login-title {
-      font-size: 22px;
+      text-align: center;
+      color: var(--primary-color);
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 25px;
     }
 
     form label {
-      font-size: 13px;
-    }
-
-    form input {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-light);
+      font-weight: 500;
       font-size: 14px;
     }
 
-    .login-btn {
+    form input[type="text"],
+    form input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 18px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background-color: #0f172a;
+      color: var(--text-light);
       font-size: 15px;
+      transition: 0.2s;
     }
-  }
-</style>
-{% endblock %}
 
-{% block content %}
-<div class="login-container">
-  <h1 class="login-title">Bareera HR Admin</h1>
+    form input[type="text"]:focus,
+    form input[type="password"]:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+      outline: none;
+    }
 
-  {% if form.errors %}
-  <p class="errornote">{% trans "Invalid username or password." %}</p>
-  {% endif %}
+    /* 🎯 Centered Sign In Button */
+    .login-btn {
+      display: block;
+      margin: 25px auto 0;
+      width: 70%;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 16px;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.25s ease, transform 0.25s ease;
+      text-align: center;
+    }
 
-  <form method="post" id="login-form">
-    {% csrf_token %}
-    <div>
-      <label for="id_username">{% trans "Username" %}</label>
-      {{ form.username }}
-    </div>
+    .login-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
 
-    <div>
-      <label for="id_password">{% trans "Password" %}</label>
-      {{ form.password }}
-    </div>
+    /* ⚠️ Error Message */
+    .errornote {
+      background-color: #dc2626;
+      color: white;
+      text-align: center;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
 
-    <button type="submit" class="login-btn">{% trans "Sign In" %}</button>
-    <input type="hidden" name="next" value="{{ next }}">
-  </form>
+    /* 📜 Footer */
+    .footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 20px;
+    }
 
-  <p class="footer">© {{ current_year|default:2025 }} Bareera HR System</p>
-</div>
-{% endblock %}
+    @media (max-width: 768px) {
+      .login-container {
+        padding: 30px;
+      }
+      .login-title {
+        font-size: 22px;
+      }
+      .login-btn {
+        width: 80%;
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h1 class="login-title">Bareera HR Admin</h1>
+
+    {% if form.errors %}
+    <p class="errornote">{% trans "Invalid username or password." %}</p>
+    {% endif %}
+
+    <form method="post" id="login-form">
+      {% csrf_token %}
+      <div>
+        <label for="id_username">{% trans "Username" %}</label>
+        {{ form.username }}
+      </div>
+
+      <div>
+        <label for="id_password">{% trans "Password" %}</label>
+        {{ form.password }}
+      </div>
+
+      <button type="submit" class="login-btn">{% trans "Sign In" %}</button>
+      <input type="hidden" name="next" value="{{ next }}">
+    </form>
+
+    <p class="footer">© {{ current_year|default:2025 }} Bareera HR System</p>
+  </div>
+</body>
+</html>

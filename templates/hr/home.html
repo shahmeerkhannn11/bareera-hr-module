@@ -2,125 +2,125 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
+<!-- 🧩 Page Heading -->
+<h2 class="page-heading">Dashboard Overview</h2>
 
-<h2 class="text-center mb-4 fw-bold text-light">HR Dashboard</h2>
-
-<div class="dashboard-cards">
-  
-  <!-- Employees -->
-  <div class="card">
-    <div class="icon">
-      <i class="bi bi-people-fill"></i>
-    </div>
-    <h3>Total Employees</h3>
-    <p>{{ employee_count }}</p>
+<!-- 📊 Dashboard Stats -->
+<div class="dashboard-container">
+  <div class="dashboard-card">
+    <div class="icon">👥</div>
+    <h4>Total Employees</h4>
+    <p class="value">{{ employee_count }}</p>
   </div>
 
-  <!-- Attendance -->
-  <div class="card">
-    <div class="icon">
-      <i class="bi bi-calendar-check-fill"></i>
-    </div>
-    <h3>Attendance Records</h3>
-    <p>{{ attendance_count }}</p>
+  <div class="dashboard-card">
+    <div class="icon">📅</div>
+    <h4>Attendance Records</h4>
+    <p class="value">{{ attendance_count }}</p>
   </div>
 
-  <!-- Payroll -->
-  <div class="card">
-    <div class="icon">
-      <i class="bi bi-wallet2"></i>
-    </div>
-    <h3>Payroll Entries</h3>
-    <p>{{ payroll_count }}</p>
+  <div class="dashboard-card">
+    <div class="icon">💼</div>
+    <h4>Payroll Entries</h4>
+    <p class="value">{{ payroll_count }}</p>
   </div>
 
-  <!-- Average Salary -->
-  <div class="card">
-    <div class="icon">
-      <i class="bi bi-cash-stack"></i>
-    </div>
-    <h3>Average Salary</h3>
-    <p>${{ average_salary|default:"0.00" }}</p>
+  <div class="dashboard-card">
+    <div class="icon">💵</div>
+    <h4>Average Salary</h4>
+    <p class="value">${{ average_salary }}</p>
   </div>
-
 </div>
 
+<!-- 🎨 Styling -->
 <style>
-  .dashboard-cards {
+  /* 🧩 Page Heading */
+  .page-heading {
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 35px;
+    border-bottom: 2px solid #2563eb;
+    display: inline-block;
+    padding-bottom: 6px;
+  }
+
+  /* 📊 Dashboard Container */
+  .dashboard-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 25px;
-    margin-top: 30px;
-  }
-
-  .card {
-    background-color: var(--card-bg);
-    color: var(--text);
-    border-radius: 12px;
-    width: 260px;
-    padding: 25px 20px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    transition: 0.3s;
-    border: 1px solid var(--border);
   }
 
-  .card:hover {
+  /* 💼 Card Design */
+  .dashboard-card {
+    width: 250px;
+    background-color: #ffffff;
+    color: #1e293b;
+    border-radius: 12px;
+    padding: 25px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+  }
+
+  .dashboard-card:hover {
     transform: translateY(-6px);
-    background-color: var(--primary);
-    color: white;
+    background-color: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
   }
 
-  .card h3 {
-    margin: 10px 0;
+  /* 🎯 Card Icon */
+  .dashboard-card .icon {
+    font-size: 42px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  /* 📋 Card Title */
+  .dashboard-card h4 {
     font-size: 18px;
     font-weight: 600;
-  }
-
-  .card p {
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0;
-  }
-
-  .icon {
-    font-size: 45px;
     margin-bottom: 10px;
-    color: var(--primary);
   }
 
-  .card:hover .icon {
-    color: white;
+  /* 📈 Card Value */
+  .dashboard-card .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: inherit;
   }
 
-  /* Light Mode */
-  :root {
-    --primary: #2563eb;
-    --text: #1e293b;
-    --card-bg: #ffffff;
-    --border: #e2e8f0;
+  /* 🌙 Dark Mode Consistency (if enabled later) */
+  body.dark-mode .dashboard-card {
+    background-color: #1e293b;
+    color: #f8fafc;
+    border: 1px solid #334155;
   }
 
-  /* Dark Mode */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --text: #f1f5f9;
-      --card-bg: #1e293b;
-      --border: #334155;
-    }
+  body.dark-mode .dashboard-card:hover {
+    background-color: #2563eb;
+    color: #ffffff;
   }
 
-  /* Responsive */
+  /* 📱 Responsive Design */
   @media (max-width: 768px) {
-    .dashboard-cards {
+    .dashboard-container {
       flex-direction: column;
       align-items: center;
     }
-    .card {
+
+    .dashboard-card {
       width: 90%;
+    }
+
+    .page-heading {
+      font-size: 22px;
+      text-align: center;
+      display: block;
     }
   }
 </style>
-
 {% endblock %}
