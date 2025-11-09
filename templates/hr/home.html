@@ -1,53 +1,126 @@
 {% extends 'hr/base.html' %}
 {% block title %}Dashboard{% endblock %}
+
 {% block content %}
-<h2 class="fw-bold mb-4">Dashboard Overview</h2>
 
-<div class="row g-4">
-  <div class="col-md-6 col-lg-3">
-    <div class="card text-white bg-primary text-center">
-      <div class="card-body">
-        <i class="bi bi-people-fill fs-1"></i>
-        <h3 class="mt-2">{{ total_employees }}</h3>
-        <p>Total Employees</p>
-      </div>
+<h2 class="text-center mb-4 fw-bold text-light">HR Dashboard</h2>
+
+<div class="dashboard-cards">
+  
+  <!-- Employees -->
+  <div class="card">
+    <div class="icon">
+      <i class="bi bi-people-fill"></i>
     </div>
+    <h3>Total Employees</h3>
+    <p>{{ employee_count }}</p>
   </div>
 
-  <div class="col-md-6 col-lg-3">
-    <div class="card text-white bg-success text-center">
-      <div class="card-body">
-        <i class="bi bi-cash-stack fs-1"></i>
-        <h3 class="mt-2">${{ avg_salary }}</h3>
-        <p>Average Salary</p>
-      </div>
+  <!-- Attendance -->
+  <div class="card">
+    <div class="icon">
+      <i class="bi bi-calendar-check-fill"></i>
     </div>
+    <h3>Attendance Records</h3>
+    <p>{{ attendance_count }}</p>
   </div>
 
-  <div class="col-md-6 col-lg-3">
-    <div class="card text-white bg-info text-center">
-      <div class="card-body">
-        <i class="bi bi-calendar-check fs-1"></i>
-        <h3 class="mt-2">{{ total_attendance }}</h3>
-        <p>Attendance Records</p>
-      </div>
+  <!-- Payroll -->
+  <div class="card">
+    <div class="icon">
+      <i class="bi bi-wallet2"></i>
     </div>
+    <h3>Payroll Entries</h3>
+    <p>{{ payroll_count }}</p>
   </div>
 
-  <div class="col-md-6 col-lg-3">
-    <div class="card text-white bg-warning text-center">
-      <div class="card-body">
-        <i class="bi bi-wallet2 fs-1"></i>
-        <h3 class="mt-2">{{ total_payroll }}</h3>
-        <p>Payroll Records</p>
-      </div>
+  <!-- Average Salary -->
+  <div class="card">
+    <div class="icon">
+      <i class="bi bi-cash-stack"></i>
     </div>
+    <h3>Average Salary</h3>
+    <p>${{ average_salary|default:"0.00" }}</p>
   </div>
+
 </div>
 
-<div class="mt-5 text-center">
-  <a href="/employees/" class="btn btn-outline-primary me-2"><i class="bi bi-person-lines-fill"></i> Manage Employees</a>
-  <a href="/attendance/" class="btn btn-outline-info me-2"><i class="bi bi-calendar"></i> View Attendance</a>
-  <a href="/payroll/" class="btn btn-outline-warning me-2"><i class="bi bi-credit-card"></i> Payroll</a>
-</div>
+<style>
+  .dashboard-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+  }
+
+  .card {
+    background-color: var(--card-bg);
+    color: var(--text);
+    border-radius: 12px;
+    width: 260px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transition: 0.3s;
+    border: 1px solid var(--border);
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    background-color: var(--primary);
+    color: white;
+  }
+
+  .card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .card p {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+    color: var(--primary);
+  }
+
+  .card:hover .icon {
+    color: white;
+  }
+
+  /* Light Mode */
+  :root {
+    --primary: #2563eb;
+    --text: #1e293b;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+  }
+
+  /* Dark Mode */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #f1f5f9;
+      --card-bg: #1e293b;
+      --border: #334155;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .dashboard-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+    .card {
+      width: 90%;
+    }
+  }
+</style>
+
 {% endblock %}
