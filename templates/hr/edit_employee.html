@@ -1,40 +1,39 @@
 {% extends 'hr/base.html' %}
+{% block title %}Edit Employee{% endblock %}
+
 {% block content %}
 
-<h2 class="fw-bold text-primary mb-3">Add New Employee</h2>
-<a href="/employees/" class="btn btn-outline-secondary btn-sm mb-3">&larr; Back to Employees</a>
+<div class="glass admin-header">
+    <div class="header-left">
+        <h2 class="page-heading">Edit Employee</h2>
+    </div>
+</div>
 
-<form method="POST" class="card p-4 shadow-sm">
-  {% csrf_token %}
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <label class="form-label">Name</label>
-      <input type="text" name="name" class="form-control" required>
-    </div>
-    <div class="col-md-6">
-      <label class="form-label">Email</label>
-      <input type="email" name="email" class="form-control" required>
-    </div>
-  </div>
-  <div class="row mb-3">
-    <div class="col-md-4">
-      <label class="form-label">Position</label>
-      <input type="text" name="position" class="form-control" required>
-    </div>
-    <div class="col-md-4">
-      <label class="form-label">Department</label>
-      <input type="text" name="department" class="form-control" required>
-    </div>
-    <div class="col-md-4">
-      <label class="form-label">Salary</label>
-      <input type="number" step="0.01" name="salary" class="form-control" required>
-    </div>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Date Joined</label>
-    <input type="date" name="date_joined" class="form-control" required>
-  </div>
-  <button type="submit" class="btn btn-primary">Save Employee</button>
+<div class="glass admin-content">
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Name</label>
+    <input type="text" name="name" value="{{ employee.name }}">
+
+    <label>Position</label>
+    <input type="text" name="position" value="{{ employee.position }}">
+
+    <label>Department</label>
+    <input type="text" name="department" value="{{ employee.department }}">
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ employee.email }}">
+
+    <label>Salary (PKR)</label>
+    <input type="number" name="salary" value="{{ employee.salary }}">
+
+    <label>Date Joined</label>
+    <input type="date" name="date_joined" value="{{ employee.date_joined|date:'Y-m-d' }}">
+
+    <button class="btn primary">Save Changes</button>
 </form>
 
+</div>
 {% endblock %}

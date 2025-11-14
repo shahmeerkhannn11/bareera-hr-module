@@ -1,112 +1,33 @@
 {% extends 'hr/base.html' %}
-{% block title %}Payroll{% endblock %}
+{% block title %}Payroll Details{% endblock %}
+
+{% block header_actions %}
+  <div class="action-buttons">
+    <a href="{% url 'add_payroll' %}" class="btn primary"><i class="bi bi-plus-circle"></i> Add Payroll</a>
+  </div>
+{% endblock %}
 
 {% block content %}
-<!-- 🧩 Page Heading -->
-<h2 class="page-heading">Payroll Records</h2>
-
-<!-- 💰 Payroll Table -->
-<div class="table-responsive">
-  <table class="table table-striped align-middle text-center">
-    <thead class="table-dark">
-      <tr>
-        <th>Employee</th>
-        <th>Month</th>
-        <th>Amount</th>
-        <th>Payment Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for p in payroll %}
-      <tr>
-        <td>{{ p.employee.name }}</td>
-        <td>{{ p.month }}</td>
-        <td>${{ p.amount }}</td>
-        <td>{{ p.payment_date }}</td>
-      </tr>
-      {% empty %}
-      <tr>
-        <td colspan="4" class="text-muted">No payroll data available.</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-
-<!-- 🔙 Back Button -->
-<div class="mt-4 text-center">
-  <a href="/" class="btn btn-primary">
-    <i class="bi bi-arrow-left"></i> Back to Dashboard
-  </a>
-</div>
-
-<!-- 🎨 Styling -->
-<style>
-  /* 🧩 Page Heading */
-  .page-heading {
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 35px;
-    border-bottom: 2px solid #2563eb;
-    display: inline-block;
-    padding-bottom: 6px;
-  }
-
-  /* 🧾 TABLE STYLING */
-  .table-responsive {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  }
-
-  .table {
-    color: #1e293b;
-  }
-
-  .table th {
-    font-weight: 600;
-    font-size: 15px;
-  }
-
-  .table td {
-    vertical-align: middle;
-  }
-
-  /* 💰 Amount Column */
-  .table td:nth-child(3) {
-    font-weight: 600;
-    color: #16a34a;
-  }
-
-  /* 🔙 BACK BUTTON */
-  .btn-primary {
-    background-color: #2563eb;
-    border: none;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-  }
-
-  .btn-primary:hover {
-    background-color: #1d4ed8;
-  }
-
-  /* 📱 MOBILE FRIENDLY */
-  @media (max-width: 768px) {
-    .table-responsive {
-      padding: 10px;
-    }
-
-    .page-heading {
-      font-size: 22px;
-      text-align: center;
-      display: block;
-    }
-
-    .btn {
-      width: 100%;
-    }
-  }
-</style>
+  <div class="glass-section">
+    <h2 class="page-heading">{{ page_title|default:"Payroll Records" }}</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Employee</th><th>Month</th><th>Amount</th><th>Payment Date</th></tr>
+        </thead>
+        <tbody>
+          {% for p in payroll %}
+          <tr>
+            <td>{{ p.employee.name }}</td>
+            <td>{{ p.month|default:p.payment_date|date:"F Y" }}</td>
+            <td class="amount">{{ p.amount }}</td>
+            <td>{{ p.payment_date }}</td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="4" class="muted">No payroll records.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 {% endblock %}

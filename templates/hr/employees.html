@@ -1,247 +1,57 @@
 {% extends 'hr/base.html' %}
 {% block title %}Employees{% endblock %}
 
+{% block header_actions %}
+  <div class="action-buttons">
+    <a href="{% url 'add_employee' %}" class="btn primary"><i class="bi bi-plus-circle"></i>Add Employee </a>
+    <a href="{% url 'export_employees_csv' %}" class="btn"><i class="bi bi-download"></i>Export CSV </a>
+  </div>
+{% endblock %}
+
 {% block content %}
+ <h2 class="page-heading">{{ page_title|default:"Employee Records" }}</h2>
+  <div class="glass-section">
+    <div class="row search-row">
+      <div class="col">
+        <form method="get" class="row">
+          <input type="text" name="q" value="{{ query }}" placeholder="Search employee..." />
+        </form>
+      </div>
+      <div class="right muted">Results: {{ employees|length }}</div>
+    </div>
 
-<!-- 🧩 Page Heading -->
-<h2 class="page-heading">Employee Records</h2>
-
-<!-- ✅ SUCCESS MESSAGE -->
-{% if messages %}
-  <div class="messages text-center mb-3">
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-    {% endfor %}
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Department</th>
+            <th>Email</th>
+            <th>Salary</th>
+            <th>Date Joined</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for emp in employees %}
+          <tr>
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.position }}</td>
+            <td>{{ emp.department }}</td>
+            <td>{{ emp.email }}</td>
+            <td class="amount">{{ emp.salary }}</td>
+            <td>{{ emp.date_joined }}</td>
+            <td>
+              <a href="{% url 'edit_employee' emp.emp_id %}" class="btn"><i class="bi bi-pencil-square"></i></a>
+              <a href="{% url 'delete_employee' emp.emp_id %}" class="btn danger" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="7" class="muted">No employees found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
-{% endif %}
-
-<!-- ✅ Action Buttons -->
-<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
-  <div>
-    <a href="/export-employees/" class="btn btn-success me-2">
-      <i class="bi bi-download"></i> Export to CSV
-    </a>
-    <a href="/employees/add/" class="btn btn-primary">
-      <i class="bi bi-plus-circle"></i> Add Employee
-    </a>
-  </div>
-</div>
-
-<!-- 🔍 Search Bar -->
-<form method="get" class="search-form mb-3">
-  <div class="d-flex justify-content-end flex-wrap">
-    <input type="text" name="q" value="{{ query }}" placeholder="Search employee..." />
-    <button type="submit"><i class="bi bi-search"></i> Search</button>
-  </div>
-</form>
-
-<!-- 👇 Employee Table -->
-<div class="table-responsive">
-  <table class="table table-striped align-middle text-center">
-    <thead class="table-dark">
-      <tr>
-        <th>Name</th>
-        <th>Position</th>
-        <th>Department</th>
-        <th>Email</th>
-        <th>Salary</th>
-        <th>Date Joined</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for emp in employees %}
-      <tr>
-        <td>{{ emp.name }}</td>
-        <td>{{ emp.position }}</td>
-        <td>{{ emp.department }}</td>
-        <td>{{ emp.email }}</td>
-        <td>${{ emp.salary }}</td>
-        <td>{{ emp.date_joined }}</td>
-        <td>
-          <a href="{% url 'edit_employee' emp.emp_id %}" class="btn btn-warning btn-sm me-1">
-            <i class="bi bi-pencil-square"></i>
-          </a>
-          <a href="{% url 'delete_employee' emp.emp_id %}" class="btn btn-danger btn-sm"
-             onclick="return confirm('Are you sure you want to delete this employee?');">
-             <i class="bi bi-trash"></i>
-          </a>
-        </td>
-      </tr>
-      {% empty %}
-      <tr>
-        <td colspan="7" class="text-muted">No employees yet.</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-
-<!-- 🔙 Back to Dashboard -->
-<div class="mt-4 text-center">
-  <a href="/" class="btn btn-primary">
-    <i class="bi bi-arrow-left"></i> Back to Dashboard
-  </a>
-</div>
-
-<!-- 🎨 Styling -->
-<style>
-  /* 🧩 Page Heading */
-  .page-heading {
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 35px;
-    border-bottom: 2px solid #2563eb;
-    display: inline-block;
-    padding-bottom: 6px;
-  }
-
-  /* ✅ SUCCESS MESSAGE */
-  .messages {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .alert {
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: 500;
-    margin-bottom: 10px;
-    width: 90%;
-    text-align: center;
-  }
-
-  .alert-success {
-    background-color: #16a34a;
-    color: #fff;
-  }
-
-  /* 🔍 SEARCH BAR */
-  .search-form {
-    text-align: right;
-  }
-
-  .search-form input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color: #f8fafc;
-    color: #1e293b;
-    width: 250px;
-    transition: 0.3s;
-  }
-
-  .search-form input:focus {
-    outline: none;
-    border-color: #2563eb;
-  }
-
-  .search-form button {
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    margin-left: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .search-form button:hover {
-    background-color: #1d4ed8;
-  }
-
-  /* 🧾 TABLE STYLING */
-  .table-responsive {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  }
-
-  .table {
-    color: #1e293b;
-  }
-
-  .table th {
-    font-weight: 600;
-    font-size: 15px;
-  }
-
-  .table td {
-    vertical-align: middle;
-  }
-
-  /* 🧠 BUTTONS */
-  .btn {
-    border-radius: 6px;
-    font-weight: 500;
-    transition: all 0.2s ease-in-out;
-  }
-
-  .btn-success {
-    background-color: #16a34a;
-    border: none;
-  }
-
-  .btn-success:hover {
-    background-color: #15803d;
-  }
-
-  .btn-primary {
-    background-color: #2563eb;
-    border: none;
-  }
-
-  .btn-primary:hover {
-    background-color: #1d4ed8;
-  }
-
-  .btn-warning {
-    color: #000;
-  }
-
-  .btn-danger {
-    background-color: #dc2626;
-    border: none;
-  }
-
-  .btn-danger:hover {
-    background-color: #b91c1c;
-  }
-
-  /* 📱 MOBILE FRIENDLY */
-  @media (max-width: 768px) {
-    .d-flex {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .d-flex a {
-      margin-bottom: 10px;
-    }
-
-    .search-form input {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-
-    .table-responsive {
-      padding: 10px;
-    }
-
-    .btn {
-      width: 100%;
-      margin-bottom: 8px;
-    }
-
-    .page-heading {
-      font-size: 22px;
-      text-align: center;
-      display: block;
-    }
-  }
-</style>
-
 {% endblock %}

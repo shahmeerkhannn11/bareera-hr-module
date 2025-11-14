@@ -1,24 +1,38 @@
-"""
-URL configuration for bareera_hr project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from hr import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('hr.urls')),  # 👈 This line connects your HR app
-]
 
+    # Django Admin
+    path('admin/', admin.site.urls),
+
+    # Authentication
+    path('', views.user_login, name='root_login'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
+    path('signup/', views.signup, name='signup'),
+
+    # Admin Dashboard
+    path('home/', views.home, name='home'),
+
+    # Employee Dashboard
+    path('employee/dashboard/', views.employee_dashboard, name='employee_dashboard'),
+
+    # Employee Management
+    path('employees/', views.employee_list, name='employee_list'),
+    path('employees/add/', views.add_employee, name='add_employee'),
+    path('employees/edit/<int:emp_id>/', views.edit_employee, name='edit_employee'),
+    path('employees/delete/<int:emp_id>/', views.delete_employee, name='delete_employee'),
+
+    # Attendance
+    path('attendance/', views.attendance_list, name='attendance_list'),
+    path('attendance/add/', views.add_attendance, name='add_attendance'),
+
+    # Payroll
+    path('payroll/', views.payroll_list, name='payroll_list'),
+    path('payroll/add/', views.add_payroll, name='add_payroll'),
+
+    # CSV Export
+    path('export-employees/', views.export_employees_csv, name='export_employees_csv'),
+]

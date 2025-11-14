@@ -1,126 +1,40 @@
 {% extends 'hr/base.html' %}
-{% block title %}Dashboard{% endblock %}
+{% block title %}Admin · Dashboard{% endblock %}
+
+{% block header_actions %}
+  <a href="{% url 'employee_list' %}" class="btn primary"><i class="bi bi-people-fill"></i> Manage Employees</a>
+{% endblock %}
 
 {% block content %}
-<!-- 🧩 Page Heading -->
-<h2 class="page-heading">Dashboard Overview</h2>
-
-<!-- 📊 Dashboard Stats -->
-<div class="dashboard-container">
-  <div class="dashboard-card">
-    <div class="icon">👥</div>
-    <h4>Total Employees</h4>
-    <p class="value">{{ employee_count }}</p>
+<div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="page-heading">Dashboard Overview</div>
   </div>
 
-  <div class="dashboard-card">
-    <div class="icon">📅</div>
-    <h4>Attendance Records</h4>
-    <p class="value">{{ attendance_count }}</p>
-  </div>
+  <div class="dashboard-grid" style="margin-top:18px;">
+    <div class="card">
+      <div class="icon">👥</div>
+      <h4>Total Employees</h4>
+      <div class="value">{{ employee_count }}</div>
+    </div>
 
-  <div class="dashboard-card">
-    <div class="icon">💼</div>
-    <h4>Payroll Entries</h4>
-    <p class="value">{{ payroll_count }}</p>
-  </div>
+    <div class="card">
+      <div class="icon">📅</div>
+      <h4>Attendance Records</h4>
+      <div class="value">{{ attendance_count }}</div>
+    </div>
 
-  <div class="dashboard-card">
-    <div class="icon">💵</div>
-    <h4>Average Salary</h4>
-    <p class="value">${{ average_salary }}</p>
+    <div class="card">
+      <div class="icon">💼</div>
+      <h4>Payroll Entries</h4>
+      <div class="value">{{ payroll_count }}</div>
+    </div>
+
+    <div class="card">
+      <div class="icon">💵</div>
+      <h4>Average Salary</h4>
+      <div class="value amount">{{ average_salary }}</div>
+    </div>
   </div>
 </div>
-
-<!-- 🎨 Styling -->
-<style>
-  /* 🧩 Page Heading */
-  .page-heading {
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 35px;
-    border-bottom: 2px solid #2563eb;
-    display: inline-block;
-    padding-bottom: 6px;
-  }
-
-  /* 📊 Dashboard Container */
-  .dashboard-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    text-align: center;
-  }
-
-  /* 💼 Card Design */
-  .dashboard-card {
-    width: 250px;
-    background-color: #ffffff;
-    color: #1e293b;
-    border-radius: 12px;
-    padding: 25px 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    border: 1px solid #e2e8f0;
-  }
-
-  .dashboard-card:hover {
-    transform: translateY(-6px);
-    background-color: #2563eb;
-    color: #ffffff;
-    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
-  }
-
-  /* 🎯 Card Icon */
-  .dashboard-card .icon {
-    font-size: 42px;
-    margin-bottom: 12px;
-    display: block;
-  }
-
-  /* 📋 Card Title */
-  .dashboard-card h4 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-
-  /* 📈 Card Value */
-  .dashboard-card .value {
-    font-size: 28px;
-    font-weight: 700;
-    color: inherit;
-  }
-
-  /* 🌙 Dark Mode Consistency (if enabled later) */
-  body.dark-mode .dashboard-card {
-    background-color: #1e293b;
-    color: #f8fafc;
-    border: 1px solid #334155;
-  }
-
-  body.dark-mode .dashboard-card:hover {
-    background-color: #2563eb;
-    color: #ffffff;
-  }
-
-  /* 📱 Responsive Design */
-  @media (max-width: 768px) {
-    .dashboard-container {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .dashboard-card {
-      width: 90%;
-    }
-
-    .page-heading {
-      font-size: 22px;
-      text-align: center;
-      display: block;
-    }
-  }
-</style>
 {% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'hr/base.html' %}
+{% block title %}Add Payroll{% endblock %}
+
+{% block header_actions %}
+  <a href="{% url 'payroll_list' %}" class="btn"><i class="bi bi-arrow-left"></i> Back</a>
+{% endblock %}
+
+{% block content %}
+  <div class="glass-section">
+    <form method="post">
+      {% csrf_token %}
+      <label>Employee</label>
+      <select name="employee" required>
+        <option value="">-- Select --</option>
+        {% for e in employees %}
+          <option value="{{ e.emp_id }}">{{ e.name }} — {{ e.position }}</option>
+        {% endfor %}
+      </select>
+
+      <label>Amount</label>
+      <input type="text" name="amount" required>
+
+      <label>Payment Date</label>
+      <input type="date" name="payment_date" required>
+
+      <label>Remarks</label>
+      <textarea name="remarks" rows="3" placeholder="Optional"></textarea>
+
+      <div class="action-buttons">
+        <button class="btn primary" type="submit">Add Payroll</button>
+        <a class="btn" href="{% url 'payroll_list' %}">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,187 @@
+/* static/css/neo-dark.css */
+/* Neo Dark UI: modern cards, spacing, typography, tables */
+:root{
+  --bg:#0b1220;
+  --panel:#0f1724;
+  --panel-2:#111826;
+  --muted:#9aa6b2;
+  --accent:#2f6ff1;
+  --accent-2:#1f4bd7;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --card-radius:14px;
+  --glass: rgba(255,255,255,0.03);
+  --soft-shadow: 0 8px 28px rgba(2,6,23,0.6);
+  --soft-shadow-2: 0 6px 18px rgba(2,6,23,0.45);
+  --font-system: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+html,body{
+  height:100%;
+  margin:0;
+  background: linear-gradient(180deg,#061019 0%, #071124 100%);
+  font-family:var(--font-system);
+  color:#e6eef8;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Layout */
+.app {
+  display:flex;
+  min-height:100vh;
+}
+/* Sidebar */
+.sidebar {
+  width:220px;
+  background:linear-gradient(180deg,var(--panel), #0d1620);
+  border-right:1px solid rgba(255,255,255,0.03);
+  padding:28px 18px;
+  box-shadow: var(--soft-shadow);
+  position:sticky;
+  top:0;
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:28px;
+}
+.brand .logo {
+  font-size:26px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  padding:10px;
+  border-radius:10px;
+  display:inline-flex;
+  align-items:center; justify-content:center;
+  box-shadow: 0 6px 18px rgba(47,111,241,0.18);
+}
+.brand h1 {
+  font-size:18px;
+  margin:0;
+  font-weight:700;
+  letter-spacing:0.2px;
+}
+/* Nav items */
+.nav-item {
+  display:block;
+  color:var(--muted);
+  padding:10px 12px;
+  margin:8px 0;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+}
+.nav-item:hover { background:var(--glass); color:#fff; transform:translateX(4px); }
+.nav-item.active { background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:white; box-shadow: 0 6px 18px rgba(31,75,215,0.15); transform:none; }
+
+/* Main content area */
+.main {
+  flex:1;
+  padding:28px 44px;
+}
+.header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:28px;
+}
+.header .title {
+  font-size:20px;
+  font-weight:700;
+}
+.header .controls {
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+/* Cards */
+.cards {
+  display:flex;
+  gap:22px;
+  flex-wrap:wrap;
+}
+.card {
+  width:260px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:var(--card-radius);
+  padding:28px 20px;
+  box-shadow:var(--soft-shadow-2);
+  text-align:center;
+}
+.card .icon {
+  font-size:36px;
+  margin-bottom:10px;
+}
+.card h4 { margin:0 0 10px 0; font-size:18px; color:#eaf2ff; font-weight:700;}
+.card .value { font-size:28px; font-weight:800; margin-top:6px; color:#fff;}
+
+/* Tables */
+.panel {
+  margin-top:24px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));
+  border-radius:12px;
+  padding:18px;
+  box-shadow: var(--soft-shadow-2);
+}
+.table {
+  width:100%;
+  border-collapse:collapse;
+  font-weight:600;
+  color:#dbe9ff;
+}
+.table thead th {
+  text-align:left;
+  padding:12px 16px;
+  font-size:14px;
+  color:var(--muted);
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.table tbody tr td {
+  padding:14px 16px;
+  border-bottom:1px dashed rgba(255,255,255,0.02);
+  color:#e6eef8;
+}
+.table tbody tr:nth-child(even) {
+  background: rgba(255,255,255,0.01);
+}
+
+/* Badges and buttons */
+.badge {
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:700;
+}
+.badge.present { background: rgba(22,163,74,0.15); color:var(--success); border:1px solid rgba(22,163,74,0.12);}
+.badge.absent { background: rgba(220,38,38,0.08); color:var(--danger); border:1px solid rgba(220,38,38,0.08);}
+
+.btn {
+  display:inline-block;
+  background:transparent;
+  padding:8px 12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.04);
+  color:#dbe9ff;
+  cursor:pointer;
+  text-decoration:none;
+  font-weight:700;
+}
+.btn.primary {
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  color:#fff;
+  border:none;
+  box-shadow: 0 8px 20px rgba(31,75,215,0.12);
+}
+.btn.ghost { background:transparent; border:1px solid rgba(255,255,255,0.04); }
+
+/* Responsive */
+@media (max-width:980px){
+  .sidebar { display:none; }
+  .main { padding:20px; }
+  .cards { justify-content:center; }
+}
+
+/* Small helper */
+.text-muted { color:var(--muted); font-weight:600; }
+.right { margin-left:auto; }
